@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Здоровое питание - EcoTrace</title>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.8);
+            /* Semi-transparent white */
+            box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+            /* Soft shadow for depth */
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .navbar .navbar-right {
+            margin-left: auto;
+        }
+
+        /* New color scheme */
+        .btn-primary {
+            background-color: #388e3c !important;
+            border-color: #2e7d32 !important;
+        }
+
+        .btn-primary:hover {
+            background-color: #2e7d32 !important;
+            border-color: #1b5e20 !important;
+        }
+
+        .page-footer {
+            background-color: #4e342e !important;
+            color: #fff !important;
+        }
+
+        .card {
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+    </style>
+</head>
+
+<body class="grey lighten-3">
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href=".">EcoTrace</a>
+        <div class="navbar-right">
+            <a class="btn btn-primary" href="desk.php">Личный кабинет</a>
+        </div>
+    </nav>
+
+    <div class="container my-5 text-center">
+        <h1 class="mb-4">Заботьтесь о своем питании</h1>
+        <h2 class="mb-4">Калькулятор калорий</h2>
+        <div class="row justify-content-center">
+            <div class="col-lg-6 text-center">
+                <form>
+                    <div class="form-group">
+                        <label for="weightInput">Вес (кг)</label>
+                        <input type="number" class="form-control" id="weightInput" placeholder="Введите ваш вес">
+                    </div>
+                    <div class="form-group">
+                        <label for="heightInput">Рост (см)</label>
+                        <input type="number" class="form-control" id="heightInput" placeholder="Введите ваш рост">
+                    </div>
+                    <div class="form-group">
+                        <label for="ageInput">Возраст</label>
+                        <input type="number" class="form-control" id="ageInput" placeholder="Введите ваш возраст">
+                    </div>
+                    <div class="form-group">
+                        <label for="genderInput">Пол</label>
+                        <select class="form-control" id="genderInput">
+                            <option value="male">Мужской</option>
+                            <option value="female">Женский</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="activityLevelInput">Уровень активности</label>
+                        <select class="form-control" id="activityLevelInput">
+                            <option value="1">Сидячий образ жизни</option>
+                            <option value="2">Легкая активность (1-3 раза в неделю)</option>
+                            <option value="3">Средняя активность (3-5 раз в неделю)</option>
+                            <option value="4">Высокая активность (6-7 раз в неделю)</option>
+                            <option value="5">Очень высокая активность (тренировки каждый день)</option>
+                        </select>
+                    </div>
+                    <button type="button"
+                        class="btn btn-lg m-0 mt-4 mb-4 px-3 py-2 z-depth-0 waves-effect mx-auto d-block"
+                        onClick="calculateCalories()" style="background-color: white; color: #388f3c;">
+                        Рассчитать калории
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Ваша суточная норма калорий:</h3>
+                    <h3 id="calorieOutput"></h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container my-5">
+        <h1 class="mb-4 text-center">Программы питания</h1>
+        <h2 class="mb-4 text-center">Выберите наиболее подходящую Вам программу</h2>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Низкокалорийная диета: &lt;1200 калорий в день</h3>
+                        <p>Эта диета предлагает употреблять менее 1200 калорий в день, что обычно является рекомендуемым
+                            количеством для женщин, которые хотят похудеть.<br>
+                            Продукты, которые могут быть присутствовать
+                            на такой диете, включают:
+                        <ul>
+                            <li>Овощи (например, листовые овощи, брокколи, цветную капусту и тыкву);</li>
+                            <li>Фрукты с низким содержанием сахара (например, яблоки, груши и апельсины);</li>
+                            <li>Белковые продукты (например, курицу, индейку, яйца и рыбу).</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Среднекалорийная диета: от 1200 до 1600 калорий в день</h3>
+                        <p>
+                            Эта диета может помочь вам сбросить вес и поддерживать его на оптимальном уровне.<br>
+                            Продукты, которые можно включать в такую диету, включают:
+                        <ul>
+                            <li>Овощи и фрукты;</li>
+                            <li>Белковые продукты (например, мясо, рыба, яйца и бобовые);</li>
+                            <li>Здоровые жиры (например, оливковое масло, авокадо и орехи).</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Высококалорийная диета: от 1600 до 2000 калорий в день</h3>
+                        <p>
+                            Эта диета подходит для людей, которые хотят набрать массу и увеличить мышечную
+                            ткань.<br>Продукты, которые можно включать в такую диету, включают:
+                        <ul>
+                            <li>Овощи и фрукты;</li>
+                            <li>Белковые продукты (например, мясо, рыба, яйца и бобовые);</li>
+                            <li>Здоровые углеводы (например, овсянку, бурый рис, сладкий картофель и фасоль);</li>
+                            <li>Здоровые жиры (например, оливковое масло, авокадо и орехи).</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Белковая диета: от 1200 до 1500 калорий в день с высоким содержанием белка</h3>
+                        <p>
+                            Эта диета может помочь вам похудеть и сохранить мышечную массу, так как белок является
+                            основой для строительства мышц.<br>Продукты, которые можно включать в такую диету, включают:
+                        <ul>
+                            <li>Белковые продукты (например, мясо, рыба, яйца и бобовые);</li>
+                            <li>Овощи и фрукты;</li>
+                            <li>Здоровые жиры (например, оливковое масло, авокадо и орехи).</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Кето-диета: &lt;50 грамм углеводов в день и &le;1600 калорий в день</h3>
+                        <p>
+                            Эта диета основана на потреблении низкого количества углеводов и высокого количества
+                            жиров.<br>
+                            Продукты, которые можно включать в такую диету, включают:
+                        <ul>
+                            <li>Белковые продукты (например, мясо, рыба, яйца и бобовые);</li>
+                            <li>Здоровые жиры (например, оливковое масло, авокадо, орехи, семена и жирную рыбу);</li>
+                            <li>Овощи с низким содержанием углеводов (например, шпинат, капуста, брокколи и спаржа).
+                            </li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Вегетарианская диета: от 1200 до 1600 калорий в день, исключающая мясо</h3>
+                        <p>
+                            Эта диета исключает мясо и может помочь вам похудеть и улучшить общее состояние
+                            здоровья.<br>Продукты, которые можно включать в такую диету, включают:
+                        <ul>
+                            <li>Фрукты и овощи;</li>
+                            <li>Бобовые (например, чечевицу, нут и фасоль);</li>
+                            <li>Здоровые жиры (например, оливковое масло, авокадо и орехи);</li>
+                            <li>Молочные продукты (например, йогурт, творог и сыр);</li>
+                            <li>Яйца.</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Веганская диета: от 1200 до 1600 калорий в день, исключающая все продукты животного
+                            происхождения</h3>
+                        <p>
+                            Эта диета исключает все продукты животного происхождения и может помочь улучшить здоровье,
+                            уменьшить риск сердечно-сосудистых заболеваний и диабета.<br>Продукты, которые можно
+                            включать в такую диету, включают:
+                        <ul>
+                            <li>Фрукты и овощи;</li>
+                            <li>Бобовые (например, чечевицу, нут и фасоль);</li>
+                            <li>Орехи, семена и авокадо для получения необходимого количества жиров;</li>
+                            <li>Специи и травы для придания блюдам вкуса.</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Веганская диета: от 1300 до 1700 калорий в день без всех животных продуктов</h3>
+                        <p>
+                            Эта диета исключает все продукты животного происхождения и может помочь уменьшить риск
+                            сердечно-сосудистых заболеваний и диабета.<br>Продукты, которые можно включать в такую
+                            диету, включают:
+                        <ul>
+                            <li>Бобовые (например, фасоль, чечевица и нут);</li>
+                            <li>Зеленые овощи (например, шпинат, брокколи и спаржа);</li>
+                            <li>Орехи и семена (например, миндаль, кешью и семена подсолнечника);</li>
+                            <li>Фрукты и ягоды.</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Глютеновая диета: &lt;1200 калорий в день без продуктов, содержащих глютен</h3>
+                        <p>
+                            Эта диета предназначена для людей, страдающих непереносимостью глютена или целиакией, и
+                            исключает продукты, содержащие пшеницу, ячмень, рожь или их производные.<br>Продукты,
+                            которые можно включать в такую диету, включают:
+                        <ul>
+                            <li>Безглютеновые зерновые (например, рис, кукуруза и гречка);</li>
+                            <li>Овощи и фрукты;</li>
+                            <li>Белковые продукты (например, курицу, индейку, яйца и рыбу).</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h3>Диета "Средиземноморье": от 1400 до 1800 калорий в день с упором на рыбу, оливковое масло и
+                            овощи</h3>
+                        <p>
+                            Эта диета основана на традиционном питании стран Средиземноморья и может помочь уменьшить
+                            риск сердечно-сосудистых заболеваний и диабета.<br>Продукты, которые можно включать в такую
+                            диету, включают:
+                        <ul>
+                            <li>Рыбу и морепродукты;</li>
+                            <li>Оливковое масло;</li>
+                            <li>Овощи и зелень;</li>
+                            <li>Фрукты и ягоды;</li>
+                            <li>Бобовые (например, фасоль и нут);</li>
+                            <li>Орехи и семена.</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper-core.min.js"
+        integrity="sha384-Lz0WJiPQRbQ8hwY4h/zp0+1gE6DZdKsA5/SZjM7qhWU4k/vbVqRmDC3BUDVEE/2c"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+
+    <script>
+        function calculateCalories() {
+            var weight = document.getElementById("weightInput").value;
+            var height = document.getElementById("heightInput").value;
+            var age = document.getElementById("ageInput").value;
+            var gender = document.getElementById("genderInput").value;
+            var activityLevel = document.getElementById("activityLevelInput").value;
+
+            if (weight == "" || height == "" || age == "") {
+                alert("Пожалуйста, заполните все поля");
+                return;
+            }
+
+            var bmr;
+            if (gender === "male") {
+                bmr = 88.36 + (13.4 * weight) + (4.8 * height) - (5.7 * age);
+            } else {
+                bmr = 447.6 + (9.2 * weight) + (3.1 * height) - (4.3 * age);
+            }
+
+            var pal;
+            if (activityLevel == "1") {
+                pal = 1.2;
+            } else if (activityLevel == "2") {
+                pal = 1.375;
+            } else if (activityLevel == "3") {
+                pal = 1.55;
+            } else if (activityLevel == "4") {
+                pal = 1.725;
+            } else {
+                pal = 1.9;
+            }
+
+            var dailyCalories = Math.round(bmr * pal);
+            document.getElementById("calorieOutput").textContent = dailyCalories + " ккал";
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper-core.min.js"
+        integrity="sha384-Lz0WJiPQRbQ8hwY4h/zp0+1gE6DZdKsA5/SZjM7qhWU4k/vbVqRmDC3BUDVEE/2c"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+
+</body>
+<footer class="page-footer font-small primary-color mt-0">
+    <div class="container d-flex align-items-center justify-content-center" style="height: 60px;">
+        <p class="text-center mb-0">© 2023 EcoTrace</p>
+    </div>
+</footer>
+
+</html>

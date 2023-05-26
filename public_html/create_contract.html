@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Создать контракт - EcoTrace</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+        }
+
+        .btn-primary {
+            background-color: #388e3c;
+            border-color: #2e7d32;
+        }
+
+        .btn-primary:hover {
+            background-color: #2e7d32;
+            border-color: #1b5e20;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            padding: 0.2rem 0.2rem;
+            border-radius: 0;
+            border: 1px solid #ced4da;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">EcoTrace</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="desk.php">Главная</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="desk-contracts.html">Контракты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">Выйти</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <h2 class="mb-4">Создать контракт</h2>
+        <form id="create-contract-form" action="create_contract.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="receiver_inn">ИНН получателя</label>
+                <input type="text" class="form-control" id="receiver_inn" name="receiver_inn" required>
+            </div>
+            <div class="form-group">
+                <label for="receiver_company">Наименование компании получателя</label>
+                <input type="text" class="form-control" id="receiver_company" name="receiver_company" required>
+            </div>
+            <div class="form-group">
+                <label for="region">Регион получателя</label>
+                <input type="text" class="form-control" id="region" name="region" required>
+            </div>
+            <div class="form-group">
+                <label for="product_name">Название продукта</label>
+                <input type="text" class="form-control" id="product_name" name="product_name" required>
+            </div>
+            <div class="form-group mb-4">
+                <label for="product_image">Фотография товара</label>
+                <input type="file" class="form-control-file" id="product_image" name="product_image" accept="image/*" required>
+            </div>
+            <div class="form-group mb-4">
+                <img id="product_image_preview" style="max-width: 300px; display: none;" />
+            </div>
+            <div class="form-group">
+                <label for="calories">Калорийность единицы продукта</label>
+                <input type="range" class="form-control-range" id="calories" name="calories" min="0" max="1000" step="10" list="tickmarks">
+                <datalist id="tickmarks">
+                    <option value="0">
+                    <option value="100">
+                    <option value="200">
+                    <option value="300">
+                    <option value="400">
+                    <option value="500">
+                    <option value="600">
+                    <option value="700">
+                    <option value="800">
+                    <option value="900">
+                    <option value="1000">
+                </datalist>
+                <output id="output"></output>
+            </div>
+            <div class="form-group">
+                <label for="product_type">Тип продукта</label>
+                <select class="form-control" id="product_type" name="product_type" required>
+                    <option selected>Выберите...</option>
+                    <option value="fruits_vegetables">Свежие фрукты и овощи</option>
+                    <option value="dairy_products">Молочные продукты</option>
+                    <option value="meat_products">Мясные продукты</option>
+                    <option value="grains">Зерновые</option>
+                    <option value="seafood">Морепродукты</option>
+                    <option value="oth">Другое</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="product_quantity">Количество товара (шт)</label>
+                <input type="number" class="form-control" id="product_quantity" name="product_quantity" required>
+            </div>
+            <div class="form-group mb-4">
+                <label for="product_price">Цена за штуку товара (руб)</label>
+                <input type="number" class="form-control" id="product_price" name="product_price" required>
+            </div>
+            <div class="form-group">
+                <label for="production_date">Дата производства</label>
+                <input type="date" class="form-control" id="production_date" name="production_date" required>
+            </div>
+            <button type="submit" class="btn btn-primary mb-4">Создать контракт</button>
+        </form>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+<script>
+    var slider = document.getElementById("calories");
+    var output = document.getElementById("output");
+    output.innerHTML = slider.value;
+    slider.oninput = function() {
+        output.innerHTML = this.value;
+    }
+    document.getElementById("product_image").onchange = function(event) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                document.getElementById("product_image_preview").src = e.target.result;
+                document.getElementById("product_image_preview").style.display = "block";
+            }
+            reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Контракты - EcoTrace</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 960px;
+        }
+
+        .btn-primary {
+            background-color: #388e3c;
+            border-color: #2e7d32;
+        }
+
+        .btn-primary:hover {
+            background-color: #2e7d32;
+            border-color: #1b5e20;
+        }
+
+        .btn-warning {
+            color: #fff;
+            background-color: #ff9800;
+            border-color: #ff9800;
+        }
+
+        .btn-warning:hover {
+            color: #fff;
+            background-color: #ff9800;
+            border-color: #ff9800;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            padding: 0.2rem 0.2rem;
+            border-radius: 0;
+            border: 1px solid #ced4da;
+        }
+
+        .modal-content {
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+        }
+        
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            line-height: 60px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+        
+        /* Стиль для центрирования элементов внутри модального окна */
+        #qrModal .modal-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Стиль для модального окна */
+        #qrModal .modal-content {
+            max-width: 500px;
+            margin: auto;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body class="grey lighten-3">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="http://primitives.ru/">EcoTrace</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="desk.php">Главная</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="desk-contracts.html">Контракты</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="logout.php">Выйти</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <h2 class="mb-4 d-inline-block mr-2">Мои контракты</h2>
+        <a href="create_contract.html" class="btn btn-success btn-sm d-inline-block">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+        </a>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название контракта</th>
+                    <th scope="col">Просмотр</th>
+                </tr>
+            </thead>
+            <tbody id="contracts-list">
+                <!-- контракты будут добавлены здесь -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div class="container my-5">
+        <h2 class="mb-4">Контракты как посредник</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Название контракта</th>
+                    <th scope="col">Просмотр</th>
+                </tr>
+            </thead>
+            <tbody id="mediator-contracts-list">
+                <!-- контракты будут добавлены здесь -->
+            </tbody>
+        </table>
+    </div>
+
+
+    <footer>
+        <div class="container my-4">
+            <p>© 2023 EcoTrace</p>
+        </div>
+    </footer>
+
+    <!-- Модальное окно для показа QR кода -->
+    <div id="qrModal" class="modal">
+        <div class="modal-content">
+            <h4>QR-код для упаковки</h4>
+            <div id="qrcode"></div>
+            <button id="printQR" class="btn btn-primary mt-3">Отправить на печать</button>
+            
+            <!-- Форма для отправки POST запроса -->
+            <form id="analyticsForm" action="analytics.php" method="post">
+                <!-- Скрытое поле для отправки ключа контракта -->
+                <input type="hidden" id="contractKey" name="contractKey">
+                <button type="submit" class="btn btn-warning mt-3">Аналитика</button>
+            </form>
+            
+            <div class="mt-3">
+                <h5>Инструкции:</h5>
+                <p>
+                    Этот QR код уникально идентифицирует ваш продукт в системе EcoTrace. Пожалуйста, сделайте следующее:
+                </p>
+                <ol>
+                    <li><strong>Отправьте на печать:</strong> Нажмите кнопку "Отправить на печать" для печати QR кода.</li>
+                    <li><strong>Наклейте на упаковку:</strong> После печати, наклейте QR код на каждую упаковку своего продукта.</li>
+                    <li><strong>Отслеживайте продукт:</strong> Когда продукт будет отсканирован в любой точке поставки, вы сможете отследить его путь в системе EcoTrace.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+    function showQRCode(contractKey) {
+        // Очищаем содержимое элемента, где должен быть QR-код
+        document.getElementById("qrcode").innerHTML = "";
+
+        var qrcode = new QRCode("qrcode", {
+            text: "http://primitives.ru/search-qr.php?contract_key=" + contractKey,
+            width: 256,
+            height: 256
+        });
+
+        $('#printQR').click(function() {
+            var divToPrint=document.getElementById('qrcode');
+            var newWin=window.open('','Print-Window');
+            newWin.document.open();
+            newWin.document.write('<html><body onload="window.print()">'+divToPrint.innerHTML+'</body></html>');
+            newWin.document.close();
+            setTimeout(function(){newWin.close();},10);
+        });
+
+        $('#qrModal').modal('show');
+        
+        // Заполняем скрытое поле формы ключом контракта
+        document.getElementById('contractKey').value = contractKey;
+    }
+
+        $(document).ready(function(){
+            $.ajax({
+                url: "getContracts.php",
+                type: "get",
+                success: function(result){
+                    for (var i = 0; i < result.length; i++) {
+                        var contract = result[i];
+                        var row = '<tr>';
+                        row += '<th scope="row">' + (i + 1) + '</th>';
+                        row += '<td>' + contract.product_name + '</td>';
+                        row += '<td><button class="btn btn-primary" onclick="showQRCode(\'' + contract.contract_key + '\')">Просмотр</button></td>';
+                        row += '</tr>';
+                        $('#contracts-list').append(row);
+                    }
+                }
+            });
+            
+            // AJAX запрос для получения контрактов, где пользователь является посредником
+            $.ajax({
+                url: "getContractsAsMediator.php",
+                type: "get",
+                success: function(result){
+                    for (var i = 0; i < result.length; i++) {
+                        var contract = result[i];
+                        var row = '<tr>';
+                        row += '<th scope="row">' + (i + 1) + '</th>';
+                        row += '<td>' + contract.product_name + '</td>';
+                        row += '<td><button class="btn btn-primary" onclick="showQRCode(\'' + contract.contract_key + '\')">Просмотр</button></td>';
+                        row += '</tr>';
+                        $('#mediator-contracts-list').append(row);
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Регистрация - EcoTrace</title>
+	<meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .navbar .navbar-right {
+            margin-left: auto;
+        }
+
+        .btn-primary {
+            background-color: #388e3c !important;
+            border-color: #2e7d32 !important;
+        }
+
+        .btn-primary:hover {
+            background-color: #2e7d32 !important;
+            border-color: #1b5e20 !important;
+        }
+
+        .page-footer {
+            background-color: #4e342e !important;
+            color: #fff !important;
+        }
+    </style>
+</head>
+<body class="grey lighten-3">
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="index.html">EcoTrace</a>
+        <div class="navbar-right">
+            <a class="btn btn-primary" href="login.html">Авторизация</a>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <h2 class="mb-4">Регистрация</h2>
+        <form id="registration-form" action="registration.php" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="email">Электронная почта</label>
+                <input type="email" class="form-control" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+            <h5 class="mb-3 mt-4">Генеральный директор</h5>
+            <div class="form-group">
+                <label for="lastName">Фамилия</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" required>
+            </div>
+            <div class="form-group">
+                <label for="firstName">Имя</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" required>
+            </div>
+            <div class="form-group">
+                <label for="middleName">Отчество</label>
+                <input type="text" class="form-control" id="middleName" name="middleName" required>
+            </div>
+            <h5 class="mb-3 mt-4">Сведения об организации</h5>
+            <div class="form-group">
+                <label for="region">Регион (город)</label>
+                <input type="text" class="form-control" id="region" name="region" required>
+            </div>
+
+            <div class="form-group">
+                <label for="providerType">Тип поставщика</label>
+                <select class="form-control" id="providerType" name="providerType" required>
+                    <option></option>
+                    <option>ООО</option>
+                    <option>ИП</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inn">ИНН</label>
+                <input type="text" class="form-control" id="inn" name="inn" required>
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">Номер телефона</label>
+                <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" pattern="^\+7\d{10}$" required>
+            </div>
+            <div class="form-group" id="organizationRulesContainer">
+                <label for="organizationRules">Устав организации (PDF)</label>
+                <input type="file" class="form-control" id="organizationRules" name="organizationRules" required>
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="epSignature" name="epSignature">
+                <label class="form-check-label" for="epSignature">Авторизация по электронной подписи</label>
+            </div>
+            <button type="submit" class="btn btn-primary" disabled>Зарегистрироваться</button>
+        </form>
+    </div>
+
+    <footer>
+        <div class="container my-4">
+            <p>© 2023 EcoTrace</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Функция для проверки, все ли условия выполнены
+            var organizationRulesOriginal = $('#organizationRulesContainer').html();
+            
+            function checkFormValidity() {
+                var formIsValid = $('#registration-form')[0].checkValidity();
+                if (formIsValid) {
+                    $('button[type="submit"]').removeAttr('disabled');
+                } else {
+                    $('button[type="submit"]').attr('disabled', 'true');
+                }
+            }
+
+            $('#epSignature').change(function() {
+                if ($(this).is(':checked')) {
+                    $('#organizationRulesContainer').html('');
+                } else {
+                    $('#organizationRulesContainer').html(organizationRulesOriginal);
+                }
+            });
+
+            $('#registration-form').keyup(checkFormValidity);
+            $('#registration-form').change(checkFormValidity);
+        });
+    </script>
+</body>
+</html>

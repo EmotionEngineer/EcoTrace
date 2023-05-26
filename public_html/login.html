@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Авторизация - EcoTrace</title>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+    <style>
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: #333;
+        }
+
+        .navbar .navbar-right {
+            margin-left: auto;
+        }
+
+        .btn-primary {
+            background-color: #388e3c !important;
+            border-color: #2e7d32 !important;
+        }
+
+        .btn-primary:hover {
+            background-color: #2e7d32 !important;
+            border-color: #1b5e20 !important;
+        }
+
+        .page-footer {
+            background-color: #4e342e !important;
+            color: #fff !important;
+        }
+
+        .form-centered {
+            display: flex;
+            justify-content: center;
+        }
+
+        .footer-centered {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="grey lighten-3">
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="index.html">EcoTrace</a>
+        <div class="navbar-right">
+            <a class="btn btn-primary" href="registration.html">Регистрация</a>
+        </div>
+    </nav>
+
+    <div class="container my-5 form-centered">
+        <div class="col-md-6">
+            <h2 class="mb-4">Авторизация</h2>
+            <form action="login.php" method="POST">
+                <div class="form-group">
+                    <label for="email">Электронная почта</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Пароль</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Войти</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer-centered">
+        <div class="container my-4">
+            <p>© 2023 EcoTrace</p>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
